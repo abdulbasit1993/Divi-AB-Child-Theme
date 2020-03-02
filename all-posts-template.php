@@ -19,14 +19,17 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
 
 <?php endif;?>
 
-			<?php while (have_posts()): the_post();?>
+<?php while (have_posts()): the_post();?>
 
-								<article id="post-<?php the_ID();?>" <?php post_class();?>>
+				<!-- Displaying Custom Field Data -->
+				<p>Today's Topic: <?php echo get_post_meta($post->ID, 'Topic', true); ?></p>
 
-								<?php if (!$is_page_builder_used): ?>
+					<article id="post-<?php the_ID();?>" <?php post_class();?>>
 
-									<h1 class="entry-title main_title"><?php the_title();?></h1>
-								<?php
+					<?php if (!$is_page_builder_used): ?>
+
+						<h1 class="entry-title main_title"><?php the_title();?></h1>
+					<?php
     $thumb = '';
 
     $width = (int) apply_filters('et_pb_index_blog_image_width', 1080);
@@ -43,10 +46,10 @@ $is_page_builder_used = et_pb_is_pagebuilder_used(get_the_ID());
 
     ?>
 
-								<?php endif;?>
+			<?php endif;?>
 
-					<div class="entry-content">
-					<?php
+	<div class="entry-content">
+	<?php
 the_content();
 
 if (!$is_page_builder_used) {
@@ -65,8 +68,8 @@ $wpb_all_query = new WP_Query(array('post_type' => 'post', 'post_status' => 'pub
 
     <!-- the loop -->
     <?php while ($wpb_all_query->have_posts()): $wpb_all_query->the_post();?>
-			        <li><a href="<?php the_permalink();?>"><?php the_title();?></a></li>
-			    <?php endwhile;?>
+												        <li><a href="<?php the_permalink();?>"><?php the_title();?></a></li>
+												    <?php endwhile;?>
     <!-- end of the loop -->
 
 </ul>
